@@ -2,9 +2,6 @@
     "name": "jmichaelward/tinker",
     "description": "Tinkering with Symfony Console.",
     "type": "project",
-    "require": {
-        "symfony/console": "^4.0"
-    },
     "license": "MIT",
     "authors": [
         {
@@ -12,5 +9,13 @@
             "email": "jeremy@jmichaelward.com"
         }
     ],
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "JMW\\Tinker\\": "src/"
+        }
+    },
+    "require": {
+        "symfony/console": "^4.0"
+    }
 }
