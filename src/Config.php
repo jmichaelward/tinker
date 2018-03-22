@@ -13,4 +13,6 @@ namespace JMW\Tinker;
 class Config
 {
     const APP_NAME = 'tinker';
+
+    const APP_VERSION = '1.0.0.';
 }

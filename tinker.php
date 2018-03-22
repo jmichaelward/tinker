@@ -13,7 +13,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
 
-$app = new Application();
+$app = new Application(Config::APP_NAME, Config::APP_VERSION);
 
 (new Tinker($app))->registerCommands();
 
