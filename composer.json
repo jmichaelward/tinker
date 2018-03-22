@@ -1,0 +1,16 @@
+{
+    "name": "jmichaelward/tinker",
+    "description": "Tinkering with Symfony Console.",
+    "type": "project",
+    "require": {
+        "symfony/console": "^4.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jeremy Ward",
+            "email": "jeremy@jmichaelward.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}
