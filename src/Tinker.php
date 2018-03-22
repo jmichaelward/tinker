@@ -8,7 +8,7 @@
 
 namespace JMW\Tinker;
 
-use JMW\Tinker\Command\GetStarted;
+use JMW\Tinker\Command as Command;
 use Symfony\Component\Console\Application;
 
 /**
@@ -36,7 +36,8 @@ class Tinker
      * @var array
      */
     private $commands = [
-        GetStarted::class,
+        Command\GetStarted::class,
+        Command\GetPosts::class,
     ];
 
     /**
