@@ -15,4 +15,6 @@ use Symfony\Component\Console\Application;
 
 $app = new Application();
 
+(new Tinker($app))->registerCommands();
+
 $app->run();
