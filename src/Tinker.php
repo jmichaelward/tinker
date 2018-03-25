@@ -39,6 +39,7 @@ class Tinker
         Command\Start::class,
         Command\Posts::class,
         Command\WP\Check::class,
+        Command\WP\Setup::class,
     ];
 
     /**
