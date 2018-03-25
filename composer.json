@@ -16,7 +16,7 @@
         }
     },
     "bin": [
-        "tinker.php"
+        "tinker"
     ],
     "require": {
         "symfony/console": "^4.0"
