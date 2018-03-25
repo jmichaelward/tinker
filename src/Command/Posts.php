@@ -14,17 +14,17 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class GetPosts
+ * Class Posts
  * @package JMW\Tinker\Command
  */
-class GetPosts extends Command
+class Posts extends Command
 {
     /**
      *
      */
     protected function configure()
     {
-        $this->setName(Config::APP_NAME . ':posts')
+        $this->setName('posts')
             ->setDescription('Get the latest posts from a WordPress site.')
             ->setHelp('This command will return the titles of the latest posts from any WordPress site with '
                 . 'REST API support.');

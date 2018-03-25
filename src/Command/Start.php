@@ -12,9 +12,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class GetStarted
+ * Class Start
  */
-class GetStarted extends Command
+class Start extends Command
 {
     /**
      * Configure the command.
@@ -23,7 +23,7 @@ class GetStarted extends Command
      */
     protected function configure()
     {
-        $this->setName(Config::APP_NAME.':start')
+        $this->setName('start')
             ->setDescription('The command that started it all!')
             ->setHelp("This command doesn't really do anything meaningful, but then, neither does Tinker.");
     }

@@ -36,8 +36,8 @@ class Tinker
      * @var array
      */
     private $commands = [
-        Command\GetStarted::class,
-        Command\GetPosts::class,
+        Command\Start::class,
+        Command\Posts::class,
     ];
 
     /**
