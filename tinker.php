@@ -11,7 +11,7 @@ namespace JMW\Tinker;
 
 use Symfony\Component\Console\Application;
 
-require __DIR__ . '/vendor/autoload.php';
+require_once file_exists( './vendor/autoload.php' ) ? './vendor/autoload.php' : __DIR__ . '/vendor/autoload.php';
 
 $app = new Application(Config::APP_NAME, Config::APP_VERSION);
 
