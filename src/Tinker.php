@@ -38,7 +38,7 @@ class Tinker
     private $commands = [
         Command\Start::class,
         Command\Posts::class,
-        Command\WPInfo::class,
+        Command\WP\Check::class,
     ];
 
     /**

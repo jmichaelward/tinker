@@ -10,9 +10,27 @@
 
 namespace JMW\Tinker;
 
+/**
+ * Class Config
+ * @package JMW\Tinker
+ */
 class Config
 {
+    /**
+     *
+     */
     const APP_NAME = 'tinker';
 
+    /**
+     *
+     */
     const APP_VERSION = '1.0.0.';
+
+    /**
+     * @return string
+     */
+    public static function appRoot()
+    {
+        return dirname(__FILE__, 2);
+    }
 }
