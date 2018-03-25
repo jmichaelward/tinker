@@ -15,6 +15,9 @@
             "JMW\\Tinker\\": "src/"
         }
     },
+    "bin": [
+        "tinker.php"
+    ],
     "require": {
         "symfony/console": "^4.0"
     }
