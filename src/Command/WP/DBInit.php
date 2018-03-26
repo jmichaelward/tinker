@@ -56,7 +56,7 @@ class DBInit extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $envFile = dirname(Config::appRoot(), 3) . './.env';
+        $envFile = dirname(Config::appRoot(), 3) . '/.env';
 
         if (!file_exists($envFile)) {
             $output->writeln('No environment file created yet for WordPress. You need to run wp:setup first.');
@@ -65,10 +65,10 @@ class DBInit extends Command
 
         $creds = $this->getCredentialsFromFile($envFile);
 
-        $mysql = `which mysql`;
+        // @TODO Figure out how to get a response from mysql so we can show different messages depending on success.
+        $this->setupDatabase($creds);
 
-        $this->setupDatabase($mysql, $creds);
-
+        $output->writeln('Database creation attempted. Try logging in to your new WordPress site.');
     }
 
     /**
@@ -97,14 +97,16 @@ class DBInit extends Command
      * @param $mysql
      * @param $creds
      */
-    private function setupDatabase($mysql, $creds)
+    private function setupDatabase($creds)
     {
-        $query1 = "CREATE DATABASE IF NOT EXISTS \`{$creds['db_name']}\`;";
-        $query2 = "GRANT USAGE ON *.* TO '${$creds['db_user']}'@'${$creds['db_host']}' IDENTIFIED BY '${$creds['db_password']}';";
-        $query3 = "GRANT ALL PRIVILEGES ON \`${$creds['db_name']}\`.* TO '${$creds['db_user']}'@'${$creds['db_host']}';";
-        $query4 = "FLUSH PRIVILEGES;";
-        $sql = "${$query1}${$query2}${$query3}${$query4}";
+        $mysql = str_replace("\n", '', `which mysql`);
 
-        `{$mysql} -u${$creds['db_user']} -p${$creds['db_password']} -e "{$sql}"`;
+        $query1 = "CREATE DATABASE IF NOT EXISTS \`{$creds['DB_NAME']}\`;";
+        $query2 = "GRANT USAGE ON *.* TO '{$creds['DB_USER']}'@'{$creds['DB_HOST']}' IDENTIFIED BY '{$creds['DB_PASSWORD']}';";
+        $query3 = "GRANT ALL PRIVILEGES ON \`{$creds['DB_NAME']}\`.* TO '{$creds['DB_USER']}'@'{$creds['DB_HOST']}';";
+        $query4 = "FLUSH PRIVILEGES;";
+        $sql = "{$query1}{$query2}{$query3}{$query4}";
+
+        return `{$mysql} -u{$creds['DB_USER']} -p{$creds['DB_PASSWORD']} -e "{$sql}"`;
     }
 }
