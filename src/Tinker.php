@@ -40,6 +40,7 @@ class Tinker
         Command\Posts::class,
         Command\WP\Check::class,
         Command\WP\Setup::class,
+        Command\WP\DBInit::class,
     ];
 
     /**
