@@ -47,6 +47,8 @@ class Setup extends Command
         if (is_writable(Config::appRoot() . '/../../wp-config.php')) {
             rename('./.env', Config::appRoot() . '/../../.env');
         }
+
+        $this->addEnvCredentialsToConfig();
     }
 
     /**
@@ -88,5 +90,35 @@ class Setup extends Command
         fwrite($file, "DB_HOST={$creds['host']}\n");
 
         fclose($file);
+    }
+
+    /**
+     * Read from the project's .env file and write the values to wp-config-local.php.
+     */
+    private function addEnvCredentialsToConfig()
+    {
+        $path = Config::appRoot();
+
+        if (!is_readable($path . '/../../.env')
+            || is_writable($path . '/../../wp-config-local.php')) {
+            // @TODO Add some kind of error.
+            return;
+        }
+
+        $envFile    = fopen($path . '/../../.env', 'r');
+        $configFile = fopen($path . '/../../wp-config-local.php', 'w');
+
+        while (($line = fgets($envFile)) !== false) {
+            $setting = explode('=', $line, 1);
+
+            if (!is_array($setting) || count($setting) !== 2) {
+                continue;
+            }
+
+            preg_replace("/\[@{$setting[0]}\]/", $setting[1], $configFile);
+        }
+
+        fclose($envFile);
+        fclose($configFile);
     }
 }
