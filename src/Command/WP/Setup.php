@@ -32,6 +32,7 @@ class Setup extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $creds = $this->requestDatabaseCredentials($input, $output);
+        $wpDir = dirname(Config::appRoot(), 3);
 
         if (!$creds) {
             $output->writeln('You entered missing or invalid database values. Please run wp:setup again to retry.');
@@ -44,10 +45,11 @@ class Setup extends Command
         $this->writeCredentialsToEnv($creds);
 
         // Move files to WordPress root if one is found.
-        if (is_writable(Config::appRoot() . '/../../wp-config.php')) {
-            rename('./.env', Config::appRoot() . '/../../.env');
+        if (is_writable($wpDir . '/wp-config.php')) {
+            rename('./.env', $wpDir . '/.env');
         }
 
+        $this->setupLocalConfig();
         $this->addEnvCredentialsToConfig();
     }
 
@@ -127,5 +129,21 @@ class Setup extends Command
         }
 
         fclose($envFile);
+    }
+
+    /**
+     * Copy the wp-config-local.php file into WordPress root.
+     */
+    private function setupLocalConfig()
+    {
+        $localConfig = '/wp-config-local.php';
+        $wpDir       = dirname(Config::appRoot(), 3);
+
+        // Get rid of the current version if there is one.
+        if (file_exists($wpDir . $localConfig)) {
+            unlink($wpDir . $localConfig);
+        }
+
+        copy(Config::appRoot() . '/templates/wp-config-local-sample.php', $wpDir . '/wp-config-local.php');
     }
 }
