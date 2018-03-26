@@ -97,28 +97,35 @@ class Setup extends Command
      */
     private function addEnvCredentialsToConfig()
     {
-        $path = Config::appRoot();
+        $path = dirname(Config::appRoot(), 3);
 
-        if (!is_readable($path . '/../../.env')
-            || is_writable($path . '/../../wp-config-local.php')) {
+        $envPath = $path . '/.env';
+        $configPath = $path . '/wp-config-local.php';
+
+        if (!is_readable($envPath) || !is_writable($configPath)) {
             // @TODO Add some kind of error.
             return;
         }
 
-        $envFile    = fopen($path . '/../../.env', 'r');
-        $configFile = fopen($path . '/../../wp-config-local.php', 'w');
+        $envFile    = fopen($envPath, 'r');
 
         while (($line = fgets($envFile)) !== false) {
-            $setting = explode('=', $line, 1);
+            $setting = explode('=', $line, 2);
 
             if (!is_array($setting) || count($setting) !== 2) {
                 continue;
             }
 
-            preg_replace("/\[@{$setting[0]}\]/", $setting[1], $configFile);
+            $configFile = fopen($configPath, 'r');
+            $configContents = file_get_contents($configPath);
+            $configContents = str_replace("[@{$setting[0]}]", str_replace("\n", '', $setting[1]), $configContents);
+            fclose($configFile);
+
+            $configFile = fopen($configPath, 'w');
+            fwrite($configFile, $configContents);
+            fclose($configFile);
         }
 
         fclose($envFile);
-        fclose($configFile);
     }
 }
