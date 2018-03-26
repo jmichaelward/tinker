@@ -19,6 +19,6 @@
         "tinker"
     ],
     "require": {
-        "symfony/console": "^3.4"
+        "symfony/console": "3.4.*"
     }
 }
