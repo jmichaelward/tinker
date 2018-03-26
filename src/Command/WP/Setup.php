@@ -4,6 +4,7 @@ namespace JMW\Tinker\Command\WP;
 
 use JMW\Tinker\Config;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
@@ -21,7 +22,8 @@ class Setup extends Command
     {
         $this->setName('wp:setup')
             ->setDescription('Set up database configuration values for WordPress.')
-            ->setHelp("Triggers an interactive script to update database constants in a WordPress local config.");
+            ->setHelp("Triggers an interactive script to update database constants in a WordPress local config.")
+            ->addOption('with-db', null, null, 'Initialize database during setup.');
     }
 
     /**
@@ -51,6 +53,11 @@ class Setup extends Command
 
         $this->setupLocalConfig();
         $this->addEnvCredentialsToConfig();
+
+        if ($input->getOption('with-db')) {
+            $command = $this->getApplication()->find('wp:db-init');
+            $command->execute($input, $output);
+        }
     }
 
     /**
