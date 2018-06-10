@@ -13,8 +13,6 @@ use Symfony\Component\Console\Application;
 
 $local_dir = __DIR__ . '/vendor/autoload.php';
 $autoload = is_readable( $local_dir ) ? $local_dir : dirname(__FILE__, 4) . '/vendor/autoload.php';
-echo $autoload;
-die;
 
 if (!is_readable($autoload)) {
     echo "Could not find autoloader. Tinker out.\n";
