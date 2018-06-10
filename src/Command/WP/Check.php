@@ -17,7 +17,7 @@ class Check extends Command
      */
     protected function configure()
     {
-        $this->setName('wp:check')
+        $this->setName('wp check')
             ->setDescription('Check for an active installation of WP-CLI.')
             ->setHelp("This command runs WP-CLI's info command & informs the caller whether the utility is installed");
     }

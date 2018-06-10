@@ -38,7 +38,8 @@ class Tinker
     private $commands = [
         Command\Start::class,
         Command\Posts::class,
-        Command\WP\Check::class,
+        Command\CloneRepository::class,
+        Command\WP::class,
         Command\WP\Setup::class,
         Command\WP\DBInit::class,
     ];
