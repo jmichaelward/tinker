@@ -56,7 +56,7 @@ class CloneRepository extends Command
         $repoName    = false !== strpos($packageName, '/') ? $packageName : "jmichaelward/{$packageName}";
         $serviceDomain = $this->getServiceDomain($serviceName);
 
-        return "git@{$serviceDomain}:$packageName.git";
+        return "git@{$serviceDomain}:$repoName.git";
     }
 
     /**
