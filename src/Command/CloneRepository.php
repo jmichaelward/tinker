@@ -43,7 +43,7 @@ class CloneRepository extends Command
 
         $output->writeln('Cloning repository...');
 
-        shell_exec($this->getCloneCommand($package, $repo));
+        shell_exec('git clone '. $this->getCloneCommand($package, $repo));
     }
 
     /**
